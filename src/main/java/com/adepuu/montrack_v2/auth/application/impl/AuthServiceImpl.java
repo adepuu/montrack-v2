@@ -18,11 +18,12 @@ import com.adepuu.montrack_v2.auth.presentation.dtos.LoginResponse;
 
 @Service
 public class AuthServiceImpl implements AuthService {
-private final UserRepository userRepository;
+  private final UserRepository userRepository;
   private final UserProviderRepository userProviderRepository;
   private final PasswordEncoder passwordEncoder;
 
-  public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, UserProviderRepository userProviderRepository) {
+  public AuthServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder,
+      UserProviderRepository userProviderRepository) {
     this.userRepository = userRepository;
     this.userProviderRepository = userProviderRepository;
     this.passwordEncoder = passwordEncoder;
@@ -51,5 +52,4 @@ private final UserRepository userRepository;
         .refreshToken(Token.builder().value("some.jwt.token").tokenType("Bearer").build())
         .build();
   }
-  
 }

@@ -1,0 +1,150 @@
+{
+	"info": {
+		"_postman_id": "e2a8c738-f235-4b15-8711-d3d2298d480e",
+		"name": "Fintrack V2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "4925962"
+	},
+	"item": [
+		{
+			"name": "auth",
+			"item": [
+				{
+					"name": "internal",
+					"item": [
+						{
+							"name": "All User List",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"Adepuu Failed Wont Saved\",\r\n    \"email\": \"adepu-fail@mail.com\",\r\n    \"password\": \"1234567890\",\r\n    \"pin\": \"1234\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{base_url}}/user/internal/user-list?search=ade&sort=createdAt,asc&page=0&size=10",
+									"host": [
+										"{{base_url}}"
+									],
+									"path": [
+										"user",
+										"internal",
+										"user-list"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "ade"
+										},
+										{
+											"key": "sort",
+											"value": "createdAt,asc"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Adepuu Failed Wont Saved\",\r\n    \"email\": \"adepu-fail@mail.com\",\r\n    \"password\": \"1234567890\",\r\n    \"pin\": \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/register",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Adepuu Failed Wont Saved - updated again\",\r\n    \"email\": \"adepu-fail-updated@mail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/user/3",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"user",
+								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"adepu-fail@mail.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

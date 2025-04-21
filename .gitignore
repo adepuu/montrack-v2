@@ -39,3 +39,4 @@ build/
 .env.test
 .env.production
 .env.*.local
+.qodo

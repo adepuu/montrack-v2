@@ -18,6 +18,16 @@
 								"disableBodyPruning": true
 							},
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNiIsImV4cCI6MTc0NTMwNjA5NCwiaWF0IjoxNzQ1MzA1MTk0LCJlbWFpbCI6ImFkZXB1dUBtYWlsLmNvbSIsInNjb3BlIjoiUk9MRV9BRE1JTiBST0xFX1VTRVIifQ.gofJyOzvqOgvPmPJkudX6AA98fS5POwv7BZ_mpqPUNE",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"body": {
@@ -120,11 +130,14 @@
 				{
 					"name": "Login",
 					"request": {
+						"auth": {
+							"type": "noauth"
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"adepu-fail@mail.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+							"raw": "{\r\n    \"email\": \"adepuu@mail.com\",\r\n    \"password\": \"1234567890\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -145,6 +158,33 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Profile",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNiIsImV4cCI6MTc0NTMwMzgwMCwiaWF0IjoxNzQ1MzAyOTAwLCJlbWFpbCI6ImFkZXB1dUBtYWlsLmNvbSIsInNjb3BlIjoiRFVNTVlfU0NPUEUifQ.CB0Ayf1J11J0nXD2rKI3r4h6xgnPl2H5Mo4RZB06iW4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/user",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"user"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }

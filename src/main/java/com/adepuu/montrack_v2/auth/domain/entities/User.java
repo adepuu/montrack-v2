@@ -1,5 +1,6 @@
 package com.adepuu.montrack_v2.auth.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -68,18 +69,23 @@ public class User {
   @Column(name = "deleted_at")
   private Instant deletedAt;
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private Set<UserProvider> userProviders = new LinkedHashSet<>();
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private Set<UserRole> userRoles = new LinkedHashSet<>();
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private Set<UserToken> userTokens = new LinkedHashSet<>();
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private Set<Wallet> userWallets = new LinkedHashSet<>();
 
+  @JsonIgnore
   @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
   private Set<Transaction> userTransactions = new LinkedHashSet<>();
 

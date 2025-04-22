@@ -1,5 +1,6 @@
 package com.adepuu.montrack_v2.auth.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -22,6 +23,7 @@ public class UserToken {
   @Column(name = "id", nullable = false)
   private Integer id;
 
+  @JsonIgnore
   @ManyToOne(fetch = FetchType.LAZY)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JoinColumn(name = "user_id")

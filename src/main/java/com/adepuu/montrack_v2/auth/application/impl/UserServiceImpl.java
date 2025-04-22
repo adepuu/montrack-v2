@@ -1,9 +1,12 @@
 package com.adepuu.montrack_v2.auth.application.impl;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +16,7 @@ import com.adepuu.montrack_v2.auth.domain.entities.UserProvider;
 import com.adepuu.montrack_v2.auth.domain.enums.LoginProviders;
 import com.adepuu.montrack_v2.auth.domain.exceptions.DuplicateUserException;
 import com.adepuu.montrack_v2.auth.domain.exceptions.UserNotFoundException;
+import com.adepuu.montrack_v2.auth.domain.valueObject.AuthUserDetail;
 import com.adepuu.montrack_v2.auth.infrastructure.repository.UserProviderRepository;
 import com.adepuu.montrack_v2.auth.infrastructure.repository.UserRepository;
 import com.adepuu.montrack_v2.auth.infrastructure.repository.specification.UserSpecification;
@@ -99,5 +103,38 @@ public class UserServiceImpl implements UserService {
 
     userRepository.saveAndFlush(user); 
     return user;
+  }
+
+  @Override
+  public User getUserByEmail(String email) {
+    Optional<User> user = userRepository.findUserByEmail(email);
+    if (user.isPresent()) {
+      return user.get();
+    } else {
+      throw new UserNotFoundException("User not found");
+    }
+  }
+
+  @Override
+  public User profile(Integer id) {
+    Optional<User> user = userRepository.findById(id);
+    if (user.isPresent()) {
+      User foundUser = user.get();
+      foundUser.setPassword(null); // Don't send password to the client
+      foundUser.setPin(null); // Don't send pin to the client
+      return foundUser;
+    } else {
+      throw new UserNotFoundException("User not found");
+    }
+  }
+
+  @Override
+  public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    User user = getUserByEmail(email);
+    AuthUserDetail userDetails = new AuthUserDetail();
+    userDetails.setEmail(email);
+    userDetails.setPassword(user.getPassword());
+    userDetails.setUserRoles(user.getUserRoles());
+    return userDetails;
   }
 }

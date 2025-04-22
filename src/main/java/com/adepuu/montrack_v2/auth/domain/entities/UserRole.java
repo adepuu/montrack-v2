@@ -1,5 +1,6 @@
 package com.adepuu.montrack_v2.auth.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +24,7 @@ public class UserRole {
   @ManyToOne(fetch = FetchType.LAZY)
   @OnDelete(action = OnDeleteAction.CASCADE)
   @JoinColumn(name = "user_id")
+  @JsonIgnore
   private User user;
 
   @ManyToOne(fetch = FetchType.LAZY)

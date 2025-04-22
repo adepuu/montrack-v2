@@ -2,6 +2,7 @@ package com.adepuu.montrack_v2.auth.presentation;
 
 import java.nio.file.Path;
 
+import com.adepuu.montrack_v2.common.security.Claims;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
@@ -30,6 +31,13 @@ public class UserRestController {
     this.userService = userService;
   }
 
+  @GetMapping
+  public ResponseEntity<?> getProfile() {
+    Integer id = Claims.getUserId();
+    return Response.successfulResponse("User profile fetched successfully",
+        userService.profile(id));
+  }
+
   @PostMapping("/register")
   public ResponseEntity<?> register(@RequestBody RegisterRequest request) {
     return Response.successfulResponse(
@@ -37,7 +45,7 @@ public class UserRestController {
         userService.registerUser(request.toUser()));
   }
 
-  // @PreAuthorize("hasRole('ROLE_ADMIN')")
+  @PreAuthorize("hasAuthority('SCOPE_ADMIN')")
   @GetMapping("/internal/user-list")
   public ResponseEntity<?> getUserList(@RequestParam(value = "page", defaultValue = "0") int page,
       @RequestParam(value = "size", defaultValue = "10") int size,
@@ -51,11 +59,9 @@ public class UserRestController {
         userService.getAllUsers(pageable, search));
   }
 
-  // @PutMapping
-  // TODO: get the user id from the token and update the user profile. Please do
-  // not use the id from the request body.
-  @PutMapping("/{id}")
-  public ResponseEntity<?> putMethodName(@RequestBody UpdateProfileRequest req, @PathVariable("id") Integer id) {
+  @PutMapping
+  public ResponseEntity<?> putMethodName(@RequestBody UpdateProfileRequest req) {
+    Integer id = Claims.getUserId();
     return Response.successfulResponse(
         "User updated successfully",
         userService.updateProfile(req, id));

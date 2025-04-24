@@ -156,6 +156,76 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"adepuu@mail.com\",\r\n    \"password\": \"1234567890\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/refresh-token",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNiIsImV4cCI6MTc0NTQ4MDU4OSwiaWF0IjoxNzQ1NDc5Njg5LCJraW5kIjoiYWNjZXNzIiwiZW1haWwiOiJhZGVwdXVAbWFpbC5jb20iLCJzY29wZSI6IlVTRVIgQURNSU4ifQ.V7lH4xPiPcHf2nOgcTdHpxIiSDlJDFdzQnkV41yyvqw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiIzNiIsImV4cCI6MTc0NjA4NDQ4OSwiaWF0IjoxNzQ1NDc5Njg5LCJraW5kIjoicmVmcmVzaCJ9.t1Cz2uc_jjJIz3LSu_XYJONbzgOZ6qKiQUUYYFz1VZ4",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/logout",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},

@@ -40,7 +40,8 @@ public class AuthServiceImpl implements AuthService {
                 .refreshToken(tokenGeneratorService.generateRefreshToken(email))
                 .build();
       } catch (Exception e) {
-        throw new LoginFailedException("Invalid email or password");
+        e.printStackTrace();
+        throw new LoginFailedException("Invalid email or password" + e.getMessage());
       }
   }
 

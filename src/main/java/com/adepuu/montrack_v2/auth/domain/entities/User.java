@@ -15,6 +15,7 @@ import org.hibernate.annotations.Filter;
 import com.adepuu.montrack_v2.wallet.domain.entities.Wallet;
 import com.adepuu.montrack_v2.wallet.domain.entities.Transaction;
 
+import java.io.Serializable;
 import java.time.Instant;
 import java.util.LinkedHashSet;
 import java.util.Set;
@@ -27,7 +28,7 @@ import java.util.Set;
 @AllArgsConstructor
 @Table(name = "users")
 @Filter(name = "deletedAtFilter", condition = "deleted_at is null")
-public class User {
+public class User implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "users_id_gen")
   @SequenceGenerator(name = "users_id_gen", sequenceName = "users_id_seq", allocationSize = 1)

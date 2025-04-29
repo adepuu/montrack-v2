@@ -18,7 +18,7 @@ public class Pocket {
   @SequenceGenerator(name = "wallet_id_gen", sequenceName = "wallet_id_seq", allocationSize = 1)
   private Integer id;
 
-  @OneToOne(fetch = FetchType.LAZY)
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "wallet_id", nullable = false)
   private Wallet wallet;
 

@@ -1,5 +1,6 @@
 package com.adepuu.montrack_v2.auth.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
@@ -42,6 +43,7 @@ public class Role {
   private Instant deletedAt;
 
   @OneToMany(mappedBy = "role")
+  @JsonIgnore
   private Set<UserRole> userRoles = new LinkedHashSet<>();
 
 }

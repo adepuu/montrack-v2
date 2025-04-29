@@ -1,6 +1,7 @@
 package com.adepuu.montrack_v2.auth.domain.valueObject;
 
 import com.adepuu.montrack_v2.auth.domain.entities.UserRole;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -19,6 +20,7 @@ public class AuthUserDetail implements UserDetails {
   private String password;
 
   @Override
+  @JsonIgnore // Ignore for serialization to prevent the setter issue
   public Collection<? extends GrantedAuthority> getAuthorities() {
     var authorities = new ArrayList<GrantedAuthority>();
 
@@ -38,5 +40,30 @@ public class AuthUserDetail implements UserDetails {
   @Override
   public String getUsername() {
     return this.email;
+  }
+  
+  // These methods are required by UserDetails interface but not used in this application
+  @Override
+  @JsonIgnore
+  public boolean isAccountNonExpired() {
+    return true;
+  }
+
+  @Override
+  @JsonIgnore
+  public boolean isAccountNonLocked() {
+    return true;
+  }
+
+  @Override
+  @JsonIgnore
+  public boolean isCredentialsNonExpired() {
+    return true;
+  }
+
+  @Override
+  @JsonIgnore
+  public boolean isEnabled() {
+    return true;
   }
 }

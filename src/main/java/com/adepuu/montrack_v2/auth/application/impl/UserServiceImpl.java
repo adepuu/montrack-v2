@@ -3,6 +3,9 @@ package com.adepuu.montrack_v2.auth.application.impl;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -45,6 +48,10 @@ public class UserServiceImpl implements UserService {
   // 5. Return the saved user
   @Override
   @Transactional
+  @Caching(evict = {
+    @CacheEvict(value = "userByEmailCache", allEntries = true),
+    @CacheEvict(value = "allUsersCache", allEntries = true)
+  })
   public User registerUser(User request) {
     long userWithSameEmail = userRepository.countByEmail(request.getEmail());
     if (userWithSameEmail != 0) {
@@ -68,6 +75,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Cacheable(value = "allUsersCache", key = "#pageable.pageNumber + '_' + #pageable.pageSize + '_' + #search")
   public PaginatedResponse<User> getAllUsers(Pageable pageable, String search) {
     Page<User> data = userRepository.findAll(UserSpecification.getFilteredUsers(search), pageable).map(user -> {
       user.setPassword(null); // Don't send password to the client
@@ -86,6 +94,11 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Caching(evict = {
+    @CacheEvict(value = "userByEmailCache", key = "#result.email"),
+    @CacheEvict(value = "userProfileCache", key = "#userId"),
+    @CacheEvict(value = "allUsersCache", allEntries = true)
+  })
   public User updateProfile(UpdateProfileRequest request, Integer userId) {
     if (userId == null) {
       throw new IllegalArgumentException("User ID cannot be null");
@@ -106,6 +119,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Cacheable(value = "userByEmailCache", key = "#email")
   public User getUserByEmail(String email) {
     Optional<User> user = userRepository.findUserByEmail(email);
     if (user.isPresent()) {
@@ -116,6 +130,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Cacheable(value = "userProfileCache", key = "#id")
   public User profile(Integer id) {
     Optional<User> user = userRepository.findById(id);
     if (user.isPresent()) {
@@ -129,6 +144,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
+  @Cacheable(value = "userDetailsCache", key = "#email")
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
     User user = getUserByEmail(email);
     AuthUserDetail userDetails = new AuthUserDetail();

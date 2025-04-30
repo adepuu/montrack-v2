@@ -1,6 +1,5 @@
 package com.adepuu.montrack_v2.auth.application.impl;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.cache.annotation.CacheEvict;
@@ -53,6 +52,9 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(value = "allUsersCache", allEntries = true)
   })
   public User registerUser(User request) {
+    if (request == null || request.getEmail() == null || request.getPassword() == null || request.getPin() == null) {
+      throw new IllegalArgumentException("User request malformed");
+    }
     long userWithSameEmail = userRepository.countByEmail(request.getEmail());
     if (userWithSameEmail != 0) {
       throw new DuplicateUserException("User with this email already exists");

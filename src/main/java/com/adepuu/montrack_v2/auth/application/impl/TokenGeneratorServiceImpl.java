@@ -67,7 +67,6 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
       throw new IllegalArgumentException("Invalid token");
     }
 
-    // check if the token is not expired
     if (decodedToken.getExpiresAt() != null && decodedToken.getExpiresAt().isBefore(Instant.now())) {
       throw new IllegalArgumentException("Token expired");
     }
@@ -87,7 +86,7 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
     User user = userService.getUserByEmail(email);
 
     Instant now = Instant.now();
-    // 7 days
+    // 7 days for refresh token expiry
     long REFRESH_TOKEN_EXPIRATION_TIME = 604800L;
     Instant expiresAt = now.plusSeconds(REFRESH_TOKEN_EXPIRATION_TIME);
     JwtClaimsSet claims = JwtClaimsSet.builder()
@@ -107,7 +106,7 @@ public class TokenGeneratorServiceImpl implements TokenGeneratorService {
 
   @Override
   public boolean isRefreshToken(String token) {
-    //    decode the token and check the kind claim first
+    // decode the token and check the kind claim first
     Jwt decodedToken = refreshTokenDecoder.decode(token);
     String kind = decodedToken.getClaimAsString("kind");
 

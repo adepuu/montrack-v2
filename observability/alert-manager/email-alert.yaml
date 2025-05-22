@@ -1,0 +1,13 @@
+global:
+  smtp_smarthost: 'montrack-mailhog:1025'
+  smtp_from: 'alert@montrack.com'
+  smtp_require_tls: false
+
+route:
+  group_wait: 30s
+
+receivers:
+  - name: 'default-receiver'
+    email_configs:
+      - to: 'dev@montrack.com'  
+        send_resolved: true

@@ -1,6 +1,10 @@
 options:
   logging: CLOUD_LOGGING_ONLY
 
+substitutions:
+  _SERVICE: montrack-api
+  _GAR_LOCATION: asia-southeast2
+
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', '${_GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_SERVICE}/${_SERVICE}:latest', '.']

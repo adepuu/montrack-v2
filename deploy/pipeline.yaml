@@ -1,0 +1,14 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: montrack-api-delivery-pipeline
+  labels:
+    app: montrack-api-cicd
+serialPipeline:
+  stages:
+    - targetId: dev
+      profiles:
+        - deploy/dev.yaml
+    - targetId: prod
+      profiles:
+        - deploy/prod.yaml

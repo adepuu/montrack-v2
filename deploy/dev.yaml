@@ -1,0 +1,13 @@
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: dev
+  labels:
+    app: montrack-api-cicd
+gke:
+  cluster: montrack-api
+  location: asia-southeast2
+  project: sepasangselamanya
+  serviceAccount: build-robot
+  annotations:
+    iam.gke.io/gcp-service-account: 744725344198-compute@developer.gserviceaccount.com

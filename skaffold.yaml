@@ -13,6 +13,7 @@ manifests:
     - k8s/service.yaml
     - k8s/hpa.yaml
     - k8s/ingress.yaml
+    - k8s/service-account.yaml
 deploy:
   kubectl: {}
   logs:

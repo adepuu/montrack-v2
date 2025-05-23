@@ -1,4 +1,4 @@
-## Project Overview
+## Project Overview 
 
 MonTrack is a money tracking application that helps users manage their personal finances. Users can track their income, expenses, create budgets, and analyze their spending habits. The application provides features like user authentication, wallet management, and transaction tracking.
 

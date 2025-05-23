@@ -3,10 +3,9 @@ kind: Ingress
 metadata:
   name: montrack-api-ingress
   annotations:
-    # nginx.ingress.kubernetes.io/rewrite-target: /
-    kubernetes.io/ingress.class: "gce"
+      kubernetes.io/ingress.class: "gce"
 spec:
-  ingressClassName: base-ingress
+  ingressClassName: gce
   rules:
   - http:
       paths:

@@ -9,6 +9,3 @@ serialPipeline:
     - targetId: dev
       profiles:
         - deploy/dev.yaml
-    - targetId: prod
-      profiles:
-        - deploy/prod.yaml

@@ -23,7 +23,8 @@ steps:
         gcloud deploy apply --file deploy/dev.yaml --region=asia-southeast2
         gcloud deploy releases create release-${SHORT_SHA} \
           --delivery-pipeline=montrack-api-delivery-pipeline \
-          --region=asia-southeast2
+          --region=asia-southeast2 \
+          --to-target=dev
     id: 'Deploy to GKE'
     env:
       - 'CLOUDSDK_CORE_PROJECT=$PROJECT_ID'

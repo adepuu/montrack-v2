@@ -1,3 +1,6 @@
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 steps:
   - name: 'gcr.io/cloud-builders/docker'
     args: ['build', '-t', '${_GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_SERVICE}/${_SERVICE}:latest', '.']
@@ -14,6 +17,9 @@ steps:
       - |
         gcloud deploy apply --file deploy/pipeline.yaml --region=asia-southeast2
         gcloud deploy apply --file deploy/dev.yaml --region=asia-southeast2
-    id: 'Deploy to Cloud Run'
+        gcloud deploy releases create release-${SHORT_SHA} \
+          --delivery-pipeline=montrack-api-delivery-pipeline \
+          --region=asia-southeast2
+    id: 'Deploy to GKE'
     env:
       - 'CLOUDSDK_CORE_PROJECT=$PROJECT_ID'

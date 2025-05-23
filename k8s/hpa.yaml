@@ -2,7 +2,7 @@ apiVersion: "autoscaling/v2"
 kind: "HorizontalPodAutoscaler"
 metadata:
   name: montrack-api-hpa
-  namespace: montrack
+  namespace: default
   labels:
     app: montrack-api
 spec:

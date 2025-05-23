@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: montrack-api
-  namespace: montrack
+  namespace: default
   labels:
     app: montrack-api
 spec: 

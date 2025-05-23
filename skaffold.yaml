@@ -1,12 +1,18 @@
 apiVersion: skaffold/v4beta9
 kind: Config
 build:
+  artifacts:
+    - image: asia-southeast2-docker.pkg.dev/sepasangselamanya/montrack-api/montrack-api
+      context: .
   tagPolicy:
     gitCommit: {}
   local: {}
 manifests:
   rawYaml:
-    - ./k8s/*
+    - k8s/deployment.yaml
+    - k8s/service.yaml
+    - k8s/hpa.yaml
+    - k8s/ingress.yaml
 deploy:
   kubectl: {}
   logs:

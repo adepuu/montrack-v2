@@ -1,0 +1,19 @@
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-t', '${_GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_SERVICE}/${_SERVICE}:latest', '.']
+    id: 'Build Docker Image'
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['push', '${_GAR_LOCATION}-docker.pkg.dev/${PROJECT_ID}/${_SERVICE}/${_SERVICE}:latest']
+    id: 'Push Docker Image'
+
+  - name: 'google/cloud-sdk:latest'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - '-xe'
+      - |
+        gcloud deploy apply --file deploy/pipeline.yaml --region=asia-southeast2
+        gcloud deploy apply --file deploy/dev.yaml --region=asia-southeast2
+    id: 'Deploy to Cloud Run'
+    env:
+      - 'CLOUDSDK_CORE_PROJECT=$PROJECT_ID'

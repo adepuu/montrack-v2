@@ -1,0 +1,82 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: montrack-api
+  namespace: montrack
+  labels:
+    app: montrack-api
+spec: 
+  replicas: 1
+  selector:
+    matchLabels:
+      app: montrack-api
+  template:
+    metadata:
+      labels:
+        app: montrack-api
+    spec:
+      serviceAccountName: build-robot
+      nodeSelector:
+        iam.gke.io/gke-metadata-server-enabled: "true"
+      containers:
+        - name: montrack-api
+          image: asia-southeast2-docker.pkg.dev/sepasangselamanya/montrack-api/montrack-api:latest
+          ports:
+            - containerPort: 8080
+          env: 
+            - name: POSTGRES_HOST
+              value: "ep-super-dust-a12wjpzi-pooler.ap-southeast-1.aws.neon.tech"
+            - name: POSTGRES_PORT
+              value: "5432"
+            - name: POSTGRES_USER
+              value: "montrack-db_owner"
+            - name: POSTGRES_PASSWORD
+              value: "npg_DZHWvf32Yhwd"
+            - name: POSTGRES_DB
+              value: "montrack-db"
+            - name: REDIS_HOST  	
+              value: "aware-giraffe-37836.upstash.io"
+            - name: REDIS_PORT
+              value: "6379"
+            - name: REDIS_PASSWORD  
+              value: "AZPMAAIjcDEwNjg5OTI5MmMwNjk0YjIyYjI5NTNiMzQ0ZDFjYmY4M3AxMA"
+            - name: REDIS_DB
+              value: "0"
+            - name: REDIS_SSL
+              value: "true"
+            - name: REDIS_TIMEOUT
+              value: "2000"
+            - name: REDIS_TTL
+              value: "3600"
+            - name: REDIS_POOL_SIZE
+              value: "10"
+            - name: JWT_SECRET
+              value: "montrack-jwt-secret"
+            - name: JWT_REFRESH_SECRET
+              value: "montrack-jwt-refresh-secret"
+          livenessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health/liveness
+              scheme: HTTP
+            initialDelaySeconds: 60
+            periodSeconds: 5
+            timeoutSeconds: 30
+            successThreshold: 1
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              port: 8080
+              path: /actuator/health/readiness
+              scheme: HTTP
+            initialDelaySeconds: 60
+            successThreshold: 1
+            failureThreshold: 5
+            timeoutSeconds: 30
+          resources:
+            requests:
+              memory: "512Mi"
+              cpu: "500m"
+            limits:
+              memory: "1Gi"
+              cpu: "1000m"

@@ -10,4 +10,4 @@ gke:
   project: sepasangselamanya
   serviceAccount: build-robot
   annotations:
-    iam.gke.io/gcp-service-account: 1001447344924-compute@developer.gserviceaccount.com 
+    iam.gke.io/gcp-service-account: 1001447344924@cloudbuild.gserviceaccount.com

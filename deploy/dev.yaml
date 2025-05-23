@@ -6,7 +6,6 @@ metadata:
     app: montrack-api-cicd
 gke:
   cluster: projects/sepasangselamanya/locations/asia-southeast2/clusters/montrack-api
-  internalIP: false
   serviceAccount: build-robot
   annotations:
     iam.gke.io/gcp-service-account: 1001447344924-compute@developer.gserviceaccount.com

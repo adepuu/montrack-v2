@@ -8,4 +8,4 @@ serialPipeline:
   stages:
     - targetId: dev
       profiles:
-        - deploy/dev.yaml
+        - dev.yaml

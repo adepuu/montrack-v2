@@ -17,3 +17,10 @@ deploy:
   kubectl: {}
   logs:
     prefix: container
+
+profiles:
+  - name: dev
+    deploy:
+      kubectl: {}
+      logs:
+        prefix: container

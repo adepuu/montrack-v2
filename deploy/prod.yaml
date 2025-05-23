@@ -5,9 +5,4 @@ metadata:
   labels:
     app: montrack-api-cicd
 gke:
-  cluster: montrack-api-prod
-  location: asia-southeast2
-  project: sepasangselamanya
-  serviceAccount: build-robot
-  annotations:
-    iam.gke.io/gcp-service-account: 1001447344924@cloudbuild.gserviceaccount.com
+  cluster: projects/sepasangselamanya/locations/asia-southeast2/clusters/montrack-api-prod
